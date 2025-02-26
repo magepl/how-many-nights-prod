@@ -5,25 +5,28 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>how many nights</title>
+    <link href="/src/style.css" rel="stylesheet">
   </head>
-  <body>
-    <div id="app">
-      <h1>how many nights</h1>
-      <form id="dateForm">
-        <div>
-          <label for="">start date</label>
-          <input type="date" name="" id="start-date-el" required/>
-        </div>
-        <div>
-          <label for="">end date</label>
-          <input type="date" name="" id="end-date-el" required/>
-        </div>
-        <input type="submit"></input>
-      </form>
-      <!-- to add more dates -->
-      <button>add more dates</button>
-      <h3 id="total-el"></span></h3>
-    </div>
+  <body class="text-magegreen">
+    <h1>how many nights</h1>
+    <div class="h-screen flex items-center justify-center">
+        <form id="dateForm">
+          <div class="">
+            <div class="">
+              <label class="" for="start-date">Start date</label>
+              <input class="" type="date" name="" id="start-date-el" required/>
+            </div>
+            <div class="">
+              <label class="" for="end-date">end date</label>
+              <input class="" type="date" name="" id="end-date-el" required/>
+            </div>
+          </div>
+          <input class="border-1 px-3" type="submit"></input>
+        </form>
+        <!-- to add more dates -->
+        <!-- <button>add more dates</button> -->
+        <h3 id="total-el"></span></h3>
+      </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
