@@ -41,7 +41,7 @@ document.getElementById("dateForm")?.addEventListener("submit", getTimes);
 
 function getTimes() {
   let timesData = "";
-  times.forEach(function (time) {
+  times.forEach(function () {
     timesData += `<div class="pb-10">
     <div class="flex space-x-2 justify-center border-1 py-2">
     </div>
