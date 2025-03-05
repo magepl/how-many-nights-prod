@@ -1,56 +1,81 @@
-import times from "./data";
+import timesArr from "./data";
 
-console.log(times);
-function daysBetweenDates(date1: string, date2: string): number {
-  const startDate = new Date(date1);
-  const endDate = new Date(date2);
-  // Calculate the difference in milliseconds
-  const differenceInTime = endDate.getTime() - startDate.getTime();
-  console.log(differenceInTime);
-  // Convert milliseconds to days
-  const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-  console.log(differenceInDays);
-  return Math.abs(Math.round(differenceInDays)); // Return absolute value of days
-  console.log(differenceInDays);
+const form = document.getElementById("dateForm");
+const timeFeed = document.getElementById("time-feed");
+const startDate = (document.getElementById("start-date-el") as HTMLInputElement)
+  .value;
+const endDate = (document.getElementById("end-date-el") as HTMLInputElement)
+  .value;
+
+function calculateNights(startDate: string, endDate: string) {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  const timeDifference = end.getTime() - start.getTime();
+  const daysDifference = timeDifference / (1000 * 3600 * 24);
+  return Math.abs(Math.round(daysDifference));
 }
 
-document.getElementById("dateForm")?.addEventListener("submit", function (e) {
-  e.preventDefault();
-  console.log("click");
-  const startDate = (
-    document.getElementById("start-date-el") as HTMLInputElement
-  ).value;
-  const endDate = (document.getElementById("end-date-el") as HTMLInputElement)
-    .value;
+// For testing
+// console.log(calculateNights("01/01/0001", "01/03/0001"));
 
-  const daysDifference = daysBetweenDates(endDate, startDate);
-  document.getElementById("time-feed")!.innerHTML = `<div class="pb-10">
-    <div class="flex space-x-2 justify-center border-1 py-2">
-    <p>Start date: ${startDate}</p>
-    <p>End date: ${endDate}</p>
-    <p>Total nights: ${daysDifference}</p>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-</svg>
-    </div>
-    <div class="flex justify-center"><p>Total nights: ${daysDifference}</p></div>
-    </div>`;
+form?.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const newTime = {
+    startTime: formData.get("startDate"),
+    endTime: formData.get("endTime"),
+    totalNights: calculateNights(
+      formData.get("startDate"),
+      formData.get("endDate")
+    ),
+  };
+  console.log(newTime.startTime);
+  timesArr.push(newTime);
+  form.reset();
+  renderTimes();
+  console.log(timesArr);
 });
 
-document.getElementById("dateForm")?.addEventListener("submit", getTimes);
+// document.getElementById("dateForm")?.addEventListener("submit", getTimes);
 
-function getTimes() {
-  let timesData = "";
-  times.forEach(function () {
-    timesData += `<div class="pb-10">
-    <div class="flex space-x-2 justify-center border-1 py-2">
-    </div>
-    <div class="flex justify-center"><p>Total nights: 0</p></div>
-    </div>`;
-  });
-  return timesData;
+// Render times
+function renderTimes() {
+  let timesData: Object[] = [];
+  if (timesArr.length === 0) {
+    timesData = "<p>No times to display</p>";
+  } else {
+    for (let i = 0; i < timesArr.length; i++) {
+      timesData += `<div class="w-full ">
+      <div class="grid grid-cols-4 gap-4 items-center border-collapse border-y border-magegreen py-2">
+      <p class="text-center">Start date: ${timesArr[i].startTime}</p>
+      <p class="text-center">End date: ${timesArr[i].endTime}</p>
+      <p class="text-center">Total nights: </p>
+      <div class="flex justify-center items-center">
+      <button id="delete-btn" class="cursor-pointer">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+      </button>
+      </div>
+      </div>
+      `;
+    }
+  }
+  timeFeed.innerHTML = timesData;
 }
 
-// function render() {
-//   document.getElementById("time-feed").innerHTML = getTimes();
-// }
+// Reset button
+document.getElementById("reset-btn")?.addEventListener("click", resetTimes);
+function resetTimes() {
+  let timesArr: Object[] = [];
+  if (timesArr) {
+    renderTimes();
+  }
+  console.log("reset all times clicked");
+}
+
+// Delete button
+document.getElementById("delete-btn")?.addEventListener("click", deleteTime);
+function deleteTime() {
+  console.log("delete time clicked");
+}

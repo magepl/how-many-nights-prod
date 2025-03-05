@@ -1,3 +1,3 @@
-const times = [{}];
+const timesArr = [];
 
-export default times;
+export default timesArr;
