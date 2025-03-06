@@ -1,4 +1,4 @@
-import timesArr from "./data";
+let timesArr = [];
 
 const form = document.getElementById("dateForm");
 const timeFeed = document.getElementById("time-feed");
@@ -29,20 +29,18 @@ form?.addEventListener("submit", function (e) {
       formData.get("endDate")
     ),
   };
-  console.log(newTime.startTime);
   timesArr.push(newTime);
   form.reset();
   renderTimes();
-  console.log(timesArr);
 });
 
 // document.getElementById("dateForm")?.addEventListener("submit", getTimes);
 
 // Render times
-function renderTimes() {
+function renderTimes(): void {
   let timesData: Object[] = [];
   if (timesArr.length === 0) {
-    timesData = "<p>No times to display</p>";
+    timesData = "<p class='text-center'>No times to display!</p>";
   } else {
     for (let i = 0; i < timesArr.length; i++) {
       timesData += `<div class="w-full ">
@@ -66,11 +64,9 @@ function renderTimes() {
 
 // Reset button
 document.getElementById("reset-btn")?.addEventListener("click", resetTimes);
-function resetTimes() {
-  let timesArr: Object[] = [];
-  if (timesArr) {
-    renderTimes();
-  }
+function resetTimes(): void {
+  timesArr = [];
+  renderTimes();
   console.log("reset all times clicked");
 }
 
@@ -79,3 +75,10 @@ document.getElementById("delete-btn")?.addEventListener("click", deleteTime);
 function deleteTime() {
   console.log("delete time clicked");
 }
+
+// let timesArr: Object[] = [];
+// if (timesArr) {
+//   renderTimes();
+// }
+// timesArr = [];
+// timeFeed.textContent = timesArr.join(", ");
