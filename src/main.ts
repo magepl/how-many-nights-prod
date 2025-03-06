@@ -1,6 +1,6 @@
-let timesArr = [];
+let timesArr: Array<{ date: string; time: string }> = [];
 
-const form = document.getElementById("dateForm");
+const form = document.getElementById("dateForm") as HTMLFormElement;
 const timeFeed = document.getElementById("time-feed");
 const startDate = (document.getElementById("start-date-el") as HTMLInputElement)
   .value;
@@ -22,15 +22,15 @@ form?.addEventListener("submit", function (e) {
   e.preventDefault();
   const formData = new FormData(form);
   const newTime = {
-    startTime: formData.get("startDate"),
-    endTime: formData.get("endTime"),
+    startTime: formData.get("startDate") as string,
+    endTime: formData.get("endTime") as string,
     totalNights: calculateNights(
       formData.get("startDate"),
       formData.get("endDate")
     ),
   };
   timesArr.push(newTime);
-  form.reset();
+  (form as HTMLFormElement).reset();
   renderTimes();
 });
 
