@@ -1,13 +1,11 @@
-let timesArr: Array = [];
+let timesArr = [];
 
 const form = document.getElementById("dateForm");
 const timeFeed = document.getElementById("time-feed");
-const startDate = (document.getElementById("start-date-el") as HTMLInputElement)
-  .value;
-const endDate = (document.getElementById("end-date-el") as HTMLInputElement)
-  .value;
+const startDate = document.getElementById("start-date-el").value;
+const endDate = document.getElementById("end-date-el").value;
 
-function calculateNights(startDate: string, endDate: string) {
+function calculateNights(startDate, endDate) {
   const start = new Date(startDate);
   const end = new Date(endDate);
   const timeDifference = end.getTime() - start.getTime();
@@ -37,8 +35,8 @@ form?.addEventListener("submit", function (e) {
 // document.getElementById("dateForm")?.addEventListener("submit", getTimes);
 
 // Render times
-function renderTimes(): void {
-  let timesData: Object[] = [];
+function renderTimes() {
+  let timesData = [];
   if (timesArr.length === 0) {
     timesData = "<p class='text-center'>No times to display!</p>";
   } else {
@@ -64,7 +62,7 @@ function renderTimes(): void {
 
 // Reset button
 document.getElementById("reset-btn")?.addEventListener("click", resetTimes);
-function resetTimes(): void {
+function resetTimes() {
   timesArr = [];
   renderTimes();
   console.log("reset all times clicked");
